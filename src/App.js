@@ -1,23 +1,42 @@
-import logo from './logo.svg';
+import React,{ useState } from 'react'
 import './App.css';
+import Canvas from './components/Canvas'
+import StartGame from './components/StartGame'
+import GameOver from './components/GameOver'
+import {
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
+  const [score, setScore] = useState(0)
+  const [userName, setUserName] = useState('User1')
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+      <Route path="/startGame" >
+        <StartGame userName={userName} setUserName={setUserName} />
+      </Route>
+
+      <Route path="/gameBoard">
+          <div className="outer-wrapper">
+            <div className="score-wrapper">
+                  <h1>Baby Strength</h1>
+                  <span>{score}</span>
+            </div>
+            
+            <div>
+            <Canvas userName={userName} setScore={setScore} score={score} />
+
+            </div>
+
+          </div>
+      </Route>
+      <Route path="/gameOver" >
+        <GameOver />
+      </Route>
+      </Switch>
     </div>
   );
 }

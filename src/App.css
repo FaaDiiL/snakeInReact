@@ -1,38 +1,94 @@
+/* @keyframes flicker {
+    
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+      text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px purple,
+      0 0 80px purple,
+      0 0 90px purple,
+      0 0 100px purple,
+      0 0 150px purple,
+  
+  }
+  
+  20%, 24%, 55% {        
+      text-shadow: none;
+  }    
+}
+ */
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: lightblue;
 }
 
-.App-link {
-  color: #61dafb;
+
+main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 800px;
+  height: 850px;
+  /* background-color: pink; */
+  border: 25px solid #9E4429;
+   /* border-image-source: url(./img/brick-texture.svg) 25 25 round;
+     border-image-width: 20; */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.square {
+  background-color: lightblue;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.score-wrapper{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  top: 0;
+  left: 1em;
+  position: absolute;
+  font-size: 1.5rem;
+}
+
+span {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-left: 2rem;
+  transition: all 1s ease-in-out;
+  /* animation: flicker 1.5s infinite alternate; */
+/* color: #0fa; */
+
+/*   background-color: green;
+  width: 23px;
+  height: 23px; */
+  /* border: 1px solid black; */
+}
+
+.baby {
+  transition: all 1s ease;
+  /* width: 48px; */
+  /* position: relative; */
+}
+
+img {
+  width: 50px;
+}
+.player-icon {
+  width:50px;
+  height:50px;
+  background-color: black;
+  border-radius:50%;
+  -webkit-border-radius:50%;
+  -moz-border-radius:50%;
+  -ms-border-radius:50%;
+  -o-border-radius:50%;
 }
