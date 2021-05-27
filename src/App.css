@@ -1,5 +1,5 @@
 /* @keyframes flicker {
-    
+
   0%, 18%, 22%, 25%, 53%, 57%, 100% {
 
       text-shadow:
@@ -11,12 +11,12 @@
       0 0 90px purple,
       0 0 100px purple,
       0 0 150px purple,
-  
+
   }
-  
-  20%, 24%, 55% {        
+
+  20%, 24%, 55% {
       text-shadow: none;
-  }    
+  }
 }
  */
 
@@ -26,9 +26,9 @@
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: lightblue;
+  /* background-color: lightblue; */
+  /* background-image: url(./img/brick-texture.svg); */
 }
-
 
 main {
   display: flex;
@@ -36,38 +36,52 @@ main {
   flex-wrap: wrap;
   width: 800px;
   height: 850px;
-  /* background-color: pink; */
-  border: 25px solid #9E4429;
-   /* border-image-source: url(./img/brick-texture.svg) 25 25 round;
-     border-image-width: 20; */
+  position: relative;
+  background-color: lavenderblush;
+  /* border: 25px solid #9e4429; */
+  /* background-image: url(./img/brick-texture.svg); */
+}
+
+main::after {
+  content: '';
+  z-index: -1;
+  top: -20px;
+  left: -20px;
+  position: absolute;
+  background-image: url(./img/brick-texture.svg);
+  /* background-image: linear-gradient(white, white),
+    linear-gradient(270deg, #00d7b9, #b95dd7 50%, #ffb367 100%); */
+  /* background-size: 300% 300%; */
+  width: 840px;
+  height: 890px;
 }
 
 .square {
-  background-color: lightblue;
+  /* background-color: lightblue; */
   width: 48px;
   height: 48px;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.027);
 }
 
-.score-wrapper{
+.score-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
   top: 0;
   left: 1em;
   position: absolute;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 span {
-  font-size: 3rem;
+  font-size: 2.2rem;
   font-weight: bold;
   margin-left: 2rem;
   transition: all 1s ease-in-out;
   /* animation: flicker 1.5s infinite alternate; */
-/* color: #0fa; */
+  /* color: #0fa; */
 
-/*   background-color: green;
+  /*   background-color: green;
   width: 23px;
   height: 23px; */
   /* border: 1px solid black; */
@@ -75,20 +89,29 @@ span {
 
 .baby {
   transition: all 1s ease;
-  /* width: 48px; */
+  width: 48px;
   /* position: relative; */
 }
 
 img {
-  width: 50px;
+  width: 48px;
 }
 .player-icon {
-  width:50px;
-  height:50px;
+  width: 50px;
+  height: 50px;
   background-color: black;
-  border-radius:50%;
-  -webkit-border-radius:50%;
-  -moz-border-radius:50%;
-  -ms-border-radius:50%;
-  -o-border-radius:50%;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+ul {
+  list-style: none;
+}
+
+ul > li {
+  cursor: pointer;
+  border: 1px solid black;
 }
