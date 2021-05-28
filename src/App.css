@@ -1,33 +1,11 @@
-/* @keyframes flicker {
-
-  0%, 18%, 22%, 25%, 53%, 57%, 100% {
-
-      text-shadow:
-      0 0 4px #fff,
-      0 0 11px #fff,
-      0 0 19px #fff,
-      0 0 40px purple,
-      0 0 80px purple,
-      0 0 90px purple,
-      0 0 100px purple,
-      0 0 150px purple,
-
-  }
-
-  20%, 24%, 55% {
-      text-shadow: none;
-  }
-}
- */
-
 .App {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100vh;
+  color: #222222;
   background-color: lavenderblush;
-  /* background-image: url(./img/brick-texture.svg); */
 }
 
 main {
@@ -37,66 +15,30 @@ main {
   width: 800px;
   height: 850px;
   position: relative;
-  /* background-color: blue; */
-  border: 25px solid #9e4429;
-  /* background-image: url(./img/brick-texture.svg); */
-}
 
-main::after {
-  content: '';
-  z-index: -1;
-  top: -20px;
-  left: -20px;
-  position: absolute;
-  /* background-image: url(./img/brick-texture.svg); */
-  /* background-image: linear-gradient(white, white),
-    linear-gradient(270deg, #00d7b9, #b95dd7 50%, #ffb367 100%); */
-  /* background-size: 300% 300%; */
-  width: 840px;
-  height: 890px;
+  border-left: 25px solid #9e4429;
+  border-right: 25px solid #9e4429;
+  border-top: 25px solid #813a24;
+  border-bottom: 25px solid #813a24;
 }
 
 .square {
-  /* background-color: lightblue; */
-  /* transform: rotate(270deg); */
-  /* background-image: url(./img/draws.svg); */
   width: 48px;
   height: 48px;
   border: 1px solid rgba(0, 0, 0, 0.027);
 }
 
 .score-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  top: 0;
-  left: 1em;
-  position: absolute;
-  font-size: 1.1rem;
 }
 
-span {
+/* span {
   font-size: 2.2rem;
   font-weight: bold;
   margin-left: 2rem;
   transition: all 1s ease-in-out;
-  /* animation: flicker 1.5s infinite alternate; */
-  /* color: #0fa; */
-
-  /*   background-color: green;
-  width: 23px;
-  height: 23px; */
-  /* border: 1px solid black; */
-}
-
-.baby {
-  transition: all 1s ease;
-  width: 48px;
-  /* position: relative; */
-}
+} */
 
 img {
-  /* width: 100%; */
   width: 48px;
 }
 
@@ -126,6 +68,22 @@ img {
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
+}
+
+.outer-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: ;
+  align-items: center;
+  /* background-color: rebeccapurple; */
+}
+
+.left-aside-wrapper {
+  padding: 0rem 8rem;
+  /* justify-content: ; */
+  height: 100%;
+  /* background-color: rebeccapurple; */
 }
 
 .startGameContainer {

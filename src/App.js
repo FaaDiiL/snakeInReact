@@ -4,6 +4,7 @@ import Canvas from './components/Canvas';
 import StartGame from './components/StartGame';
 import GameOver from './components/GameOver';
 import { Switch, Route, Link } from 'react-router-dom';
+import LeftAside from './components/LeftAside';
 
 function App() {
   const [score, setScore] = useState(0);
@@ -28,13 +29,11 @@ function App() {
 
         <Route path='/gameBoard'>
           <div className='outer-wrapper'>
-            <div className='score-wrapper'>
-              <h1>Old man Strength</h1>
-              <span>{score}</span>
-              <span>{difficulty}</span>
-            </div>
-            {/* <span>{userName}</span> */}
-
+            <LeftAside
+              userName={userName}
+              difficulty={difficulty}
+              score={score}
+            />
             <div>
               <Canvas
                 userName={userName}

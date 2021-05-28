@@ -28,8 +28,8 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
 
   // let [direction, setDirection] = useState('right');
   let dir = 'right';
-  let number = 0;
-  let foodNum;
+  // let number = 0;
+  // let foodNum;
   //Array to draw map and amount of squares to draw
   let mapDraw = [];
   let amountSquares = 272;
@@ -39,8 +39,11 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
   let endOfRow = false;
 
   function checkIfEndOfRow(number, dir) {
-    for (let i = 1; i < 16; i++) {
-      if (i * 16 == number + 1) {
+    for (let i = 0; i < 16; i++) {
+      /*       console.log('end of row');
+      console.log(number); */
+      if (i == 0) return;
+      if (i * 15 + i == number) {
         endOfRow = true;
       }
     }
@@ -63,7 +66,7 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
   useInterval(() => {
     // if (bombCount == 0) setBombCount(15);
     setBombCount(bombCount - 1);
-    console.log(bombCount);
+    // console.log(bombCount);
   }, 1000);
   ////////////////////////////
 
@@ -110,7 +113,7 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
         console.log('Hard');
         break;
       default:
-        setMilliseconds(700);
+        setMilliseconds(150);
         break;
     }
   }
@@ -120,14 +123,14 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
     // Checks the direction of the player
     if (currentDir == 'right') {
       // End of row calculation
-      checkIfEndOfRow(playerState, dir);
+      checkIfEndOfRow(playerState, currentDir);
       !endOfRow
         ? setPlayerState(playerState + 1)
-        : setPlayerState(playerState - 16);
+        : setPlayerState(playerState - 15);
     }
     if (currentDir == 'left') {
       // End of row calculation
-      checkIfEndOfRow(number, dir);
+      // checkIfEndOfRow(number, currentDir);
       setPlayerState(!endOfRow ? playerState - 1 : playerState + 16);
     }
     if (currentDir == 'up') {
@@ -141,6 +144,7 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
       );
     }
     /////////////////////////////////////////////////
+    // console.log(playerState);
     checkForCollisionAndMovePlayer();
   }, milliseconds);
 
@@ -178,7 +182,7 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
     });
 
     // functions run on refresh
-    Speed(difficulty);
+    Speed(1050);
     buildMap();
     setBombFunction();
   }, []);
@@ -202,7 +206,11 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
               <img src={BombSvg} />
               <span
                 style={
-                  bombCount > 5 ? { color: 'lightcoral' } : { color: '#fc3d03' }
+                  bombCount > 5
+                    ? { color: 'lightcoral' }
+                    : bombCount > 3
+                    ? { color: '#fc3d03' }
+                    : { color: 'red' }
                 }
                 className='bomb-counter'
               >
