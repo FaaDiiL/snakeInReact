@@ -16,6 +16,7 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
   const [player, setPlayer] = useState(['Bäbis', 'Bäbis']);
   const [food, setFood] = useState(Math.floor(Math.random() * 272));
   const [bomb, setBomb] = useState();
+  const [bombCount, setBombCount] = useState(9);
   const [currentDir, setCurrentDir] = useState('right');
   const [bodyArr, setBodyArr] = useState([0]);
   const [milliseconds, setMilliseconds] = useState(700);
@@ -46,18 +47,25 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
     return endOfRow;
   }
 
-  // length = current length och the baby
-  // position = Wich square of the mapLevel the baby made a turn on ex. 25
-  // Dir = Wich direction the palyer turned
+  //Set bomb function
+  const setBombFunction = () => {
+    setBomb(Math.floor(Math.random() * 272));
+    setTimeout(() => {
+      setBomb(null);
+      setTimeout(() => {
+        setBombCount(9);
+        setBombFunction();
+      }, 4500);
+    }, 9000);
+  };
 
-  //   let moreBebis = []
-  //let bodyArr = []
-  /*
-  useEffect(() => {
-    funciton(length, position, dir){
-
-    }
-  },[dir]) */
+  /// Interval to count down bomb before explotion
+  useInterval(() => {
+    // if (bombCount == 0) setBombCount(15);
+    setBombCount(bombCount - 1);
+    console.log(bombCount);
+  }, 1000);
+  ////////////////////////////
 
   // Sets new satate for the array of body.
   //Takes food boolean as argument to grow if true
@@ -172,6 +180,7 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
     // functions run on refresh
     Speed(difficulty);
     buildMap();
+    setBombFunction();
   }, []);
 
   buildMap();
@@ -179,24 +188,36 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
   //  return bodyArr.includes(i) ? (< Bebis key={i} src={BabySvg} /> ) : (
   //       <img key={i} src={FoodSvg} /> ) ? i == bomb (<img key={i} src={BombSvg} />)  (<div key={i} className='square'></div>
   return (
-    <main>
-      {mapDraw.map((i) => {
-        return !bodyArr.includes(i) && i !== food && i !== bomb ? (
-          <div key={i} className='square'></div>
-        ) : i == food ? (
-          <img key={i} src={FoodSvg} />
-        ) : bodyArr.includes(i) ? (
-          <Bebis currentDir={currentDir} key={i} src={BabySvg} />
-        ) : (
-          <img src={BombSvg} />
-        );
-        // return bodyArr.includes(i) ? (
-        //   <Bebis key={i} src={BabySvg} />
-        // ) : (
-        // <img key={i} src={FoodSvg} />
-        // );
-      })}
-    </main>
+    <>
+      <main>
+        {mapDraw.map((i) => {
+          return !bodyArr.includes(i) && i !== food && i !== bomb ? (
+            <div key={i} className='square'></div>
+          ) : i == food ? (
+            <img key={i} src={FoodSvg} />
+          ) : bodyArr.includes(i) ? (
+            <Bebis currentDir={currentDir} key={i} src={BabySvg} />
+          ) : (
+            <div className='container'>
+              <img src={BombSvg} />
+              <span
+                style={
+                  bombCount > 5 ? { color: 'lightcoral' } : { color: '#fc3d03' }
+                }
+                className='bomb-counter'
+              >
+                {bombCount}
+              </span>
+            </div>
+          );
+          // return bodyArr.includes(i) ? (
+          //   <Bebis key={i} src={BabySvg} />
+          // ) : (
+          // <img key={i} src={FoodSvg} />
+          // );
+        })}
+      </main>
+    </>
   );
 };
 
