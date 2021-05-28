@@ -3,6 +3,7 @@ import useInterval from '@use-it/interval';
 import styled from 'styled-components';
 import BabySvg from '../img/back.svg';
 import FoodSvg from '../img/beer.svg';
+import BombSvg from '../img/bomb.svg';
 
 import '../App.css';
 
@@ -14,6 +15,7 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
   const PlayersStartPosition = 0;
   const [player, setPlayer] = useState(['Bäbis', 'Bäbis']);
   const [food, setFood] = useState(Math.floor(Math.random() * 272));
+  const [bomb, setBomb] = useState();
   const [currentDir, setCurrentDir] = useState('right');
   const [bodyArr, setBodyArr] = useState([0]);
   const [milliseconds, setMilliseconds] = useState(700);
@@ -57,66 +59,30 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
     }
   },[dir]) */
 
-  // Moves player according to direction
-  const addFoodToBody = (dir) => {
-    switch (dir) {
-      case 'right':
-        setNewBodyArrStateFood();
-        break;
-      case 'left':
-        break;
-      case 'up':
-        break;
-      case 'down':
-        break;
-      default:
-        break;
-    }
-  };
-
-  const setNewBodyArrState = (number) => {
-    let newBodyArray = [...bodyArr];
-    newBodyArray.push(playerState);
-    newBodyArray.shift();
-    setBodyArr(newBodyArray);
-  };
-  const setNewBodyArrStateFood = () => {
-    buildMap();
-    let newBodyArray = [...bodyArr];
-    // newBodyArray.shift();
-    // console.log(number);
-    // newBodyArray.unshift(number);
-    // newBodyArray.push(playerState - newBodyArray.length);
-    newBodyArray.push(playerState);
+  // Sets new satate for the array of body.
+  //Takes food boolean as argument to grow if true
+  const setNewBodyArrState = (food) => {
+    let newBodyArray = [...bodyArr, playerState];
+    if (!food) newBodyArray.shift();
     setBodyArr(newBodyArray);
   };
 
-  const checkForCollisionOfFood = () => {
+  const checkForCollisionAndMovePlayer = () => {
     let checkForLos = [...bodyArr];
     checkForLos.splice(0, 1);
 
     if (checkForLos.includes(playerState)) {
       alert('You lose');
     }
+
     // if Collision with food
     if (playerState == food) {
-      console.log(playerState);
-      foodNum = generateFood();
-
-      setFood(foodNum);
-
       setScore((score += 10));
-      setNewBodyArrStateFood();
-
-      // buildMap();
-      // addFoodToBody(dir);
-      // bodyArr.push(number - score / 10);
-      // let newArr = [...bodyArr];
-      // newArr.push(number - score / 10);
-      // setBodyArr(newArr);
-      // amountSquares -= 1;
+      setFood(generateFood());
+      // setNewBodyArrStateFood();
+      setNewBodyArrState(true);
     } else {
-      setNewBodyArrState(playerState);
+      setNewBodyArrState();
     }
   };
 
@@ -167,7 +133,7 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
       );
     }
     /////////////////////////////////////////////////
-    checkForCollisionOfFood();
+    checkForCollisionAndMovePlayer();
   }, milliseconds);
 
   // Builds the map
@@ -210,16 +176,25 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
 
   buildMap();
   // return i === bebis ? (  bodyArr.includes(Number(i))
+  //  return bodyArr.includes(i) ? (< Bebis key={i} src={BabySvg} /> ) : (
+  //       <img key={i} src={FoodSvg} /> ) ? i == bomb (<img key={i} src={BombSvg} />)  (<div key={i} className='square'></div>
   return (
     <main>
       {mapDraw.map((i) => {
-        return !bodyArr.includes(i) && i !== food ? (
+        return !bodyArr.includes(i) && i !== food && i !== bomb ? (
           <div key={i} className='square'></div>
-        ) : i == food && !bodyArr.includes(playerState) ? (
+        ) : i == food ? (
           <img key={i} src={FoodSvg} />
+        ) : bodyArr.includes(i) ? (
+          <Bebis currentDir={currentDir} key={i} src={BabySvg} />
         ) : (
-          <Bebis key={i} src={BabySvg} />
+          <img src={BombSvg} />
         );
+        // return bodyArr.includes(i) ? (
+        //   <Bebis key={i} src={BabySvg} />
+        // ) : (
+        // <img key={i} src={FoodSvg} />
+        // );
       })}
     </main>
   );
@@ -227,8 +202,15 @@ const Canvas = ({ userName, setScore, score, difficulty }) => {
 
 const Bebis = styled.img`
   transition: all 0.5s ease;
-  transform: ${(props) =>
-    props.currentDir == 'down' ? 'scaleX(-1)' : 'rotateY(0deg)'};
+  /* transform: ${(props) =>
+    props.currentDir == 'left'
+      ? 'rotateY(3.142rad)'
+      : props.currentDir == 'up'
+      ? 'rotateZ(-90deg)'
+      : props.currentDir == 'down'
+      ? 'rotateZ(90deg)'
+      : 'none'}; */
+  /* display: ${(props) => (props.currentDir == 'left' ? 'none' : 'block')}; */
   width: 50px;
 `;
 
