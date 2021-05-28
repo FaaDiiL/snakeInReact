@@ -13,21 +13,23 @@ function StartGame({ username, setUserName, setDifficulty, difficulty }) {
     history.push('/gameBoard');
   }
   return (
-    <>
+    <div className="startGameContainer">
       <form onSubmit={handleSubmit}>
         <label htmlFor='test'>User name</label>
         <input type='text' id='test' />
         <button type='submit'>StartGame</button>
       </form>
       <div className='difficultyWrapper'>
+        <h3>Choose difficulty</h3>
         <ul>
           <li onClick={() => setDifficulty('Easy')}>Easy</li>
           <li onClick={() => setDifficulty('Normal')}>Normal</li>
           <li onClick={() => setDifficulty('Hard')}>Hard</li>
-          <p>Difficulty is: {difficulty}</p>
+
         </ul>
+        <p>Difficulty is: <span>{difficulty}</span></p>
       </div>
-    </>
+    </div>
   );
 }
 
